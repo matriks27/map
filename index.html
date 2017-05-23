@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Peta Tematik Indonesia</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="bootstrap-3.3.7/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+     <link rel="stylesheet" href="leaflet/leaflet.css" />
+     <style>
+        #mapindonesia { height: 700px; }
+     </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Peta Tematik Indonesia</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        
+        <div class="col-sm-12 col-sm-offset-3 col-md-12 col-md-offset-2 main">
+          <div id="mapindonesia">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jquery-3.1.1.min.js"></script>    
+    <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="bootstrap-3.3.7/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+     <script src="leaflet/leaflet.js"></script>
+     <script>
+         var style = {
+            "fillColor": "#ff7800",                    
+            "fillOpacity": 0.8,
+            "stroke": true,
+            "color": "#03f",
+            "weight": 1,
+        };
+    
+        var map = L.map('mapindonesia').setView([-3.721933, 114.793895], 5);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        }).addTo(map); 
+
+        $.ajax({
+        dataType: "json",
+        //memanggil data.php yang tadi dibuat
+        url: "data.php",
+        success: function(datasql) {                    
+          indonesialayer(datasql);
+          }
+        });
+
+        function indonesialayer(datasql)
+        {
+          $.ajax({
+          dataType: "json",
+          //memanggil provinsi.json yang tadi di download
+          url: "provinsi.json",
+          success: function(data) {
+              //provinsi.json disimpan dalam variable data
+              //tampilkan provinsi.json ke dalam mapindonesia            
+              //bindPopup digunakan untuk menampilkan info nama provinsi ketika layer provinsi di klik                        
+              L.geoJSON(data,{
+                onEachFeature:onEachFeature,
+                style:style                
+              }).addTo(map);
+
+              function onEachFeature(feature, layer) {
+
+				layer.bindPopup( "<a href='http://spasial.data.kemdikbud.go.id/index.php/cdashboard/index/270000/2'>"+"Provinsi: "+ feature.properties.PROVINSI + "</a>");
+				if(feature.properties.ID2013=='11') {
+				layer.setStyle({fillColor:"#058DC7"});   
+				}
+				if(feature.properties.ID2013=='12') {
+				layer.setStyle({fillColor:"#50B432"});   
+				}
+				if(feature.properties.ID2013=='13') {
+				layer.setStyle({fillColor:"#ED561B"});   
+				}
+				if(feature.properties.ID2013=='14') {
+				layer.setStyle({fillColor:"#DDDF00"});   
+				}
+				if(feature.properties.ID2013=='15') {
+				layer.setStyle({fillColor:"#24CBE5"});   
+				}
+				if(feature.properties.ID2013=='16') {
+				layer.setStyle({fillColor:"#64E572"});   
+				}
+				if(feature.properties.ID2013=='17') {
+				layer.setStyle({fillColor:"#FF9655"});   
+				}
+				if(feature.properties.ID2013=='18') {
+				layer.setStyle({fillColor:"#FFF263"});   
+				}
+				if(feature.properties.ID2013=='19') {
+				layer.setStyle({fillColor:"#6AF9C4"});   
+				}
+				if(feature.properties.ID2013=='21') {
+				layer.setStyle({fillColor:"#058DC7"});   
+				}
+				
+				if(feature.properties.ID2013=='31') {
+				layer.setStyle({fillColor:"#50B432"});   
+				}
+				if(feature.properties.ID2013=='32') {
+				layer.setStyle({fillColor:"#ED561B"});   
+				}
+				if(feature.properties.ID2013=='33') {
+				layer.setStyle({fillColor:"#DDDF00"});   
+				}
+				if(feature.properties.ID2013=='34') {
+				layer.setStyle({fillColor:"#24CBE5"});   
+				}
+				if(feature.properties.ID2013=='35') {
+				layer.setStyle({fillColor:"#64E572"});   
+				}
+				if(feature.properties.ID2013=='36') {
+				layer.setStyle({fillColor:"#FF9655"});   
+				}
+				if(feature.properties.ID2013=='51') {
+				layer.setStyle({fillColor:"#FFF263"});   
+				}
+				if(feature.properties.ID2013=='52') {
+				layer.setStyle({fillColor:"#6AF9C4"});   
+				}
+				if(feature.properties.ID2013=='53') {
+				layer.setStyle({fillColor:"#058DC7"});   
+				}
+				if(feature.properties.ID2013=='61') {
+				layer.setStyle({fillColor:"#50B432"});   
+				}
+				if(feature.properties.ID2013=='62') {
+				layer.setStyle({fillColor:"#ED561B"});   
+				}
+				if(feature.properties.ID2013=='63') {
+				layer.setStyle({fillColor:"#DDDF00"});   
+				}
+				if(feature.properties.ID2013=='64') {
+				layer.setStyle({fillColor:"#24CBE5"});   
+				}
+				if(feature.properties.ID2013=='65') {
+				layer.setStyle({fillColor:"#64E572"});   
+				}
+				if(feature.properties.ID2013=='71') {
+				layer.setStyle({fillColor:"#FF9655"});   
+				}
+				if(feature.properties.ID2013=='72') {
+				layer.setStyle({fillColor:"#FFF263"});   
+				}
+				if(feature.properties.ID2013=='73') {
+				layer.setStyle({fillColor:"#6AF9C4"});   
+				}
+				if(feature.properties.ID2013=='74') {
+				layer.setStyle({fillColor:"#058DC7"});   
+				}
+				if(feature.properties.ID2013=='75') {
+				layer.setStyle({fillColor:"#50B432"});   
+				}
+				if(feature.properties.ID2013=='76') {
+				layer.setStyle({fillColor:"#ED561B"});   
+				}
+				
+				if(feature.properties.ID2013=='81') {
+				layer.setStyle({fillColor:"#DDDF00"});   
+				}
+				if(feature.properties.ID2013=='82') {
+				layer.setStyle({fillColor:"#24CBE5"});   
+				}
+				if(feature.properties.ID2013=='91') {
+				layer.setStyle({fillColor:"#64E572"});   
+				}
+				if(feature.properties.ID2013=='94') {
+				layer.setStyle({fillColor:"#FF9655"});   
+				}
+
+				/*	
+                for(var i=0;i<datasql.provinsi.length;i++)
+                {                  
+                  if(datasql.provinsi[i].ID==feature.properties.ID2013)
+                  {    
+                    jumlah=parseInt(datasql.provinsi[i].JUMLAHPENDUDUK);                
+                    if(jumlah<=3000)
+                    {
+                      layer.setStyle({fillColor:"#2ecc71"});    
+                    }
+                    else if(jumlah>3000&&jumlah<=6000)
+                    {                                    
+                      layer.setStyle({fillColor:"#9b59b6"});    
+                    }
+                    else if(jumlah>6000&&jumlah<=9000)
+                    {
+                      layer.setStyle({fillColor:"#3498db"});
+                    }
+                    else if(jumlah>9000&&jumlah<=12000)
+                    {
+                      layer.setStyle({fillColor:"#e67e22"});
+                    }
+                    else if(jumlah>12000)
+                    {
+                      layer.setStyle({fillColor:"#e74c3c"});
+                    }
+                                                   
+                  }
+                }
+				*/
+                
+				
+              } 
+            }
+          });
+        }
+
+               
+     </script>
+  </body>
+</html>
+<!--
+Buat warnain json
+//return {color: feature.properties.color};
+-->
